@@ -1,0 +1,21 @@
+vuln-lab-local/
+│
+├── docker-compose.yml
+├── README.md
+│
+├── services/
+│   ├── webapp/
+│   │   ├── Dockerfile
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   │
+│   ├── db/
+│   │   └── init.sql
+│   │
+│   └── vuln-service/
+│       ├── Dockerfile
+│       └── server.py
+│
+└── scripts/
+    ├── start_lab.sh
+    └── stop_lab.sh
