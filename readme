@@ -1,21 +1,12 @@
-vuln-lab-local/
-│
-├── docker-compose.yml
-├── README.md
-│
-├── services/
-│   ├── webapp/
-│   │   ├── Dockerfile
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   │
-│   ├── db/
-│   │   └── init.sql
-│   │
-│   └── vuln-service/
-│       ├── Dockerfile
-│       └── server.py
-│
-└── scripts/
-    ├── start_lab.sh
-    └── stop_lab.sh
+# Local Vulnerable Security Lab
+
+Ein absichtlich verwundbares Test-Labor, ausschließlich für Lernzwecke und nur lokal nutzbar.
+
+## Features
+- Schwache SQL-Query (nur Demonstration in eigener Umgebung)
+- Einfacher Service mit schwacher Auth
+- Docker-compose Setup für schnelles Testen
+
+## Start
+```bash
+./scripts/start_lab.sh
