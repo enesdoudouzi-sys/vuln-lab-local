@@ -1,15 +1,26 @@
-from flask import Flask, request
+import socket
+import concurrent.futures
 
-app = Flask(__name__)
+def scan_port(host, port, timeout=0.5):
+    """Scannt einen einzelnen Port – nur legale Nutzung in eigener Umgebung!"""
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(timeout)
+        result = sock.connect_ex((host, port))
+        sock.close()
+        return port, (result == 0)
+    except Exception:
+        return port, False
 
-SECRET = "1234"  # absichtlich schwach
+def scan_range(host, start_port, end_port):
+    results = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=200) as executor:
+        futures = [
+            executor.submit(scan_port, host, port)
+            for port in range(start_port, end_port + 1)
+        ]
+        for future in futures:
+            port, open_flag = future.result()
+            results[port] = open_flag
+    return results
 
-@app.route("/admin")
-def admin():
-    token = request.args.get("token")
-    if token == SECRET:
-        return "Admin access granted"
-    return "Access denied"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=9090)
